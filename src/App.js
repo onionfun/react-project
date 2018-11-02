@@ -1,25 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import WeatherContainer from './WeatherContainer';
+import Login from './Login';
 
+// Dark sky API key: 54027aaa136404819ab799aaa96235ce
 class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      username: "",
+      password: "",
+      loggedIn: false
+    }
+  }
+  handleLogin = () => {
+    console.log("LOGGED IN (WITH FAKE LOG IN - IT DOESN'T GO ANYWHERE YET")
+    this.setState({
+      loggedIn: true
+    })
+  }
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <h1>hello</h1>
+        { this.state.loggedIn ? <WeatherContainer /> : <Login handleLogin={this.handleLogin} />}
       </div>
     );
   }
