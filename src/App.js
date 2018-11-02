@@ -1,25 +1,15 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import WeatherContainer from './WeatherContainer';
 
+// Dark sky API key: 54027aaa136404819ab799aaa96235ce
 class App extends Component {
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <h1>hello</h1>
+        <WeatherContainer />
       </div>
     );
   }
