@@ -5,6 +5,7 @@ const long = -104.88600;
 const APIkey = "54027aaa136404819ab799aaa96235ce";
 // https://api.darksky.net/forecast/54027aaa136404819ab799aaa96235ce/37.8267,-122.4233
 
+const proxyurl = "https://cors-anywhere.herokuapp.com/";
 const weatherURL = "https://api.darksky.net/forecast/54027aaa136404819ab799aaa96235ce/" + lat + "," + long;
 
 export default class WeatherContainer extends Component {
@@ -25,7 +26,7 @@ export default class WeatherContainer extends Component {
     }
     getWeather = async () => {
         try {
-            const weather = await fetch(weatherURL);
+            const weather = await fetch(proxyurl + weatherURL);
             const parsedWeather = await weather.json();
             console.log(parsedWeather)
             return parsedWeather;
