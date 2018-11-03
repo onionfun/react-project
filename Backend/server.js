@@ -3,6 +3,7 @@ const app            = express();
 const bodyParser     = require('body-parser');
 const cors           = require('cors');
 const session        = require('express-session')
+require('./controllers/userscontroller')
 
 require('./db/db');
 app.use(session({
