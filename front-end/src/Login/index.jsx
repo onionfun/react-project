@@ -8,7 +8,7 @@ class Login extends Component {
                 <form onSubmit={this.props.submitLogin}>
                     username: <input type="text" name="username" onChange={this.props.handleInputs} /><br/>
                     password: <input type="password" name="password" onChange={this.props.handleInputs} /><br/>
-                    zip code: <input type="number" name="zip" onChange={this.props.handleInputs}/>
+                    zip code: <input type="number" name="location" onChange={this.props.handleInputs}/>
                     <input type="submit"/>
                 </form>
             </div>
