@@ -5,9 +5,10 @@ class Login extends Component {
         return(
             <div>
                 <h1>Log in</h1>
-                <form onSubmit={this.props.handleLogin}>
-                    username: <input type="text" name="username" /><br/>
-                    password: <input type="password" name="password" /><br/>
+                <form onSubmit={this.props.submitLogin}>
+                    username: <input type="text" name="username" onChange={this.props.handleInputs} /><br/>
+                    password: <input type="password" name="password" onChange={this.props.handleInputs} /><br/>
+                    zip code: <input type="number" name="zip" onChange={this.props.handleInputs}/>
                     <input type="submit"/>
                 </form>
             </div>
