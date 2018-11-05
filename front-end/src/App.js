@@ -10,19 +10,17 @@ class App extends Component {
     this.state = {
       username: "",
       password: "",
+      zip: 10000,
       loggedIn: false
     }
   }
   handleInputs = (e) => {
-    console.log(e.currentTarget.value);
     this.setState({
       [e.currentTarget.name]: e.currentTarget.value
     })
   }
   submitLogin = (e) => {
     e.preventDefault();
-    console.log("LOGGED IN (WITH FAKE LOG IN - IT DOESN'T GO ANYWHERE YET");
-    console.log(this.state.username);
     this.setState({
       loggedIn: true,
       // this isn't a real login - need to align it with the back-end to sort that out
@@ -32,7 +30,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        { this.state.loggedIn ? <WeatherContainer username={this.state.username} /> : <Login submitLogin={this.submitLogin} handleInputs={this.handleInputs} />}
+        { this.state.loggedIn ? <WeatherContainer username={this.state.username} zip={this.state.zip} /> : <Login submitLogin={this.submitLogin} handleInputs={this.handleInputs} />}
       </div>
     );
   }
