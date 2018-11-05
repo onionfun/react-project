@@ -13,7 +13,7 @@ app.use(session({
   }))
 
   //middleware
-  app.use(bodyParser.urlencoded({extended: false}));
+app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
 const corsOptions = {
