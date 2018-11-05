@@ -13,17 +13,26 @@ class App extends Component {
       loggedIn: false
     }
   }
-  handleLogin = () => {
-    console.log("LOGGED IN (WITH FAKE LOG IN - IT DOESN'T GO ANYWHERE YET")
+  handleInputs = (e) => {
+    console.log(e.currentTarget.value);
     this.setState({
-      loggedIn: true
+      [e.currentTarget.name]: e.currentTarget.value
+    })
+  }
+  submitLogin = (e) => {
+    e.preventDefault();
+    console.log("LOGGED IN (WITH FAKE LOG IN - IT DOESN'T GO ANYWHERE YET");
+    console.log(this.state.username);
+    this.setState({
+      loggedIn: true,
+      // this isn't a real login - need to align it with the back-end to sort that out
+      username: this.state.username
     })
   }
   render() {
     return (
       <div className="App">
-        <h1>hello</h1>
-        { this.state.loggedIn ? <WeatherContainer /> : <Login handleLogin={this.handleLogin} />}
+        { this.state.loggedIn ? <WeatherContainer username={this.state.username} /> : <Login submitLogin={this.submitLogin} handleInputs={this.handleInputs} />}
       </div>
     );
   }

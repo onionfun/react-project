@@ -42,10 +42,12 @@ export default class WeatherContainer extends Component {
         })
     }
     render(){
+        console.log(this.props.username)
         return(
             <div>
+                <h1>Hi, {this.props.username}!</h1>
                 {/* Show weather map of submitted */}
-                {this.state.apparentTemperature ? <h4>It feels like {this.state.apparentTemperature}°F right now.</h4>: <p>No temperature data</p>}
+                {this.state.apparentTemperature ? <h4>It feels like {this.state.apparentTemperature}°F right now in Denver.</h4>: <p>No temperature data</p>}
             </div>
         )
     }
