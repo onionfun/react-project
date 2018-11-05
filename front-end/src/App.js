@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import "semantic-ui-css/semantic.min.css";
 import './App.css';
 import WeatherContainer from './WeatherContainer';
 import Login from './Login';
@@ -19,7 +20,8 @@ class App extends Component {
       [e.currentTarget.name]: e.currentTarget.value
     })
   }
-  submitLogin = async (e) => {
+
+  submitRegistration = async (e) => {
     e.preventDefault();
     console.log("GOT HERE")
     try{
@@ -50,7 +52,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        { this.state.loggedIn ? <WeatherContainer username={this.state.username} zip={this.state.location} /> : <Login submitLogin={this.submitLogin} handleInputs={this.handleInputs} />}
+        { this.state.loggedIn ? <WeatherContainer username={this.state.username} zip={this.state.location} /> : <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} />}
       </div>
     );
   }

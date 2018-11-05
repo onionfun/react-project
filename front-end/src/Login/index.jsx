@@ -1,16 +1,43 @@
 import React, {Component} from "react";
+import { Form, Label, Button } from "semantic-ui-react";
 
 class Login extends Component {
     render(){
         return(
             <div>
-                <h1>Log in</h1>
-                <form onSubmit={this.props.submitLogin}>
-                    username: <input type="text" name="username" onChange={this.props.handleInputs} /><br/>
-                    password: <input type="password" name="password" onChange={this.props.handleInputs} /><br/>
-                    zip code: <input type="number" name="location" onChange={this.props.handleInputs}/>
-                    <input type="submit"/>
-                </form>
+                <div className="spacer"/>
+                <h1>Login or Register</h1>
+                <h2>Login</h2>
+                <Form onSubmit={this.props.submitLogin}>
+                    <Label>
+                        username: 
+                        <Form.Input type="text" name="username" onChange={this.props.handleInputs} />
+                    </Label>
+                    <Label>
+                        password: <Form.Input type="password" name="password" onChange={this.props.handleInputs} />
+                    </Label>
+                    <br/>
+                    <br/>
+                    <Button color="blue">Submit</Button>
+                </Form>
+                <div className="spacer"/>
+                <div className="spacer"/>
+                <h2>Register</h2>
+                <Form onSubmit={this.props.submitRegistration}>
+                    <Label>
+                        username: 
+                        <Form.Input type="text" name="username" onChange={this.props.handleInputs} />
+                    </Label>
+                    <Label>
+                        password: <Form.Input type="password" name="password" onChange={this.props.handleInputs} />
+                    </Label>
+                    <Label>
+                        zip code: <Form.Input type="number" name="zip" onChange={this.props.handleInputs}/>
+                    </Label>
+                    <br/>
+                    <br/>
+                    <Button color="green">Submit</Button>
+                </Form>
             </div>
         )
     }
