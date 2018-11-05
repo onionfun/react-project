@@ -10,7 +10,7 @@ class App extends Component {
     this.state = {
       username: "",
       password: "",
-      zip: 10000,
+      location: 10000,
       loggedIn: false
     }
   }
@@ -19,18 +19,38 @@ class App extends Component {
       [e.currentTarget.name]: e.currentTarget.value
     })
   }
-  submitLogin = (e) => {
+  submitLogin = async (e) => {
     e.preventDefault();
-    this.setState({
-      loggedIn: true,
-      // this isn't a real login - need to align it with the back-end to sort that out
-      username: this.state.username
-    })
+    console.log("GOT HERE")
+    try{
+      const createUser = await fetch('http://localhost:9000/auth/login', {
+        method: 'POST',
+        body: JSON.stringify(this.state),
+        headers: {
+          'Content-Type': 'application/json'
+        } 
+      });
+      const parsedResponse = await createUser.json();
+      console.log(parsedResponse, ' this is response')
+      if(parsedResponse.status == 200){
+        this.setState({
+          loggedIn: true,
+          // this isn't a real login - need to align it with the back-end to sort that out
+          username: parsedResponse.data.username
+        })
+      } else if (parsedResponse.status == 500){
+        console.log("INTERNAL SERVER ERROR")
+      }
+    }catch(err){
+      console.log(err, " error")
+    }
+
+
   }
   render() {
     return (
       <div className="App">
-        { this.state.loggedIn ? <WeatherContainer username={this.state.username} zip={this.state.zip} /> : <Login submitLogin={this.submitLogin} handleInputs={this.handleInputs} />}
+        { this.state.loggedIn ? <WeatherContainer username={this.state.username} zip={this.state.location} /> : <Login submitLogin={this.submitLogin} handleInputs={this.handleInputs} />}
       </div>
     );
   }
