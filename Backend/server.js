@@ -2,8 +2,8 @@ const express        = require('express');
 const app            = express();
 const bodyParser     = require('body-parser');
 const cors           = require('cors');
-const session        = require('express-session')
-require('./controllers/userscontroller')
+const session        = require('express-session');
+// const requireLogin = require('./middleware/requireLogin')
 
 require('./db/db');
 app.use(session({
@@ -28,7 +28,7 @@ const authCon = require('./controllers/authcontroller');
 const usersCon = require('./controllers/userscontroller');
 
 app.use('/api/v1/users', usersCon);
-app.use('/auth/login', authCon);
+app.use('/auth', authCon);
 
 app.listen(process.env.PORT || 9000, () => {
   console.log('listening on port 9000');

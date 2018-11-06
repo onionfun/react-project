@@ -24,8 +24,9 @@ class App extends Component {
   submitRegistration = async (e) => {
     e.preventDefault();
     console.log("GOT HERE")
+    console.log(this.state);
     try{
-      const createUser = await fetch('http://localhost:9000/auth/login', {
+      const createUser = await fetch('http://localhost:9000/auth/register', {
         method: 'POST',
         body: JSON.stringify(this.state),
         headers: {
