@@ -24,13 +24,14 @@ router.post('/login', async (req, res)=>{
     }
 });
 
-
+//registration
 router.post('/register', async (req, res)=>{
     console.log("GOT REGISTER")
+    console.log(req.body);
     try{
         const newUser = await User.create(req.body);
         // res.session.logged = true;
-        res.session.username = req.body.username;
+        req.session.username = req.body.username;
         console.log("GOT NEWUSER")
         res.json({
             status: 200,
