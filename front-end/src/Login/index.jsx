@@ -32,7 +32,7 @@ class Login extends Component {
                         password: <Form.Input type="password" name="password" onChange={this.props.handleInputs} />
                     </Label>
                     <Label>
-                        zip code: <Form.Input type="number" name="zip" onChange={this.props.handleInputs}/>
+                        zip code: <Form.Input type="number" name="location" onChange={this.props.handleInputs}/>
                     </Label>
                     <br/>
                     <br/>
