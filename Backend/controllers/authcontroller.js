@@ -22,7 +22,7 @@ router.post('/login', async (req, res)=>{
             data: err
         })
     }
-})
+});
 
 
 router.post('/register', async (req, res)=>{
