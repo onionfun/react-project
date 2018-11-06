@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import Weather from "../Weather";
 
 const DarkSkyAPIkey = "54027aaa136404819ab799aaa96235ce";
 const googleAPIkey = "AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg";
@@ -25,7 +26,7 @@ export default class WeatherContainer extends Component {
     }
     getCityInfo = async () => {
         console.log(this.props.location);
-        const fetchURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + this.props.location.toString() + "&key=" + googleAPIkey.toString() + "&type=json";
+        const fetchURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + this.props.location.toString + "&key=" + googleAPIkey + "&type=json";
         console.log(fetchURL);
         try {
             const cityInfo = await fetch(proxyurl + fetchURL);
@@ -39,6 +40,7 @@ export default class WeatherContainer extends Component {
             console.log("GOT HERE")
             const weatherURL = "https://api.darksky.net/forecast/" + DarkSkyAPIkey + "/" + this.state.lat + "," + this.state.long;
             console.log("GOT HERE 2")
+            console.log(weatherURL);
             const weather = await fetch(proxyurl + weatherURL);
             const parsedWeather = await weather.json();
             console.log("GOT HERE 3")
@@ -59,6 +61,7 @@ export default class WeatherContainer extends Component {
         console.log(this.props.username)
         return(
             <div>
+                <Weather />
                 <h1>Hi, {this.props.username}!</h1>
                 {/* Show weather map of submitted */}
                 {this.state.apparentTemperature ? <h4>It feels like {this.state.apparentTemperature}°F right now in {this.state.city}.</h4>: <p>No temperature data</p>}
