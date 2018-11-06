@@ -1,8 +1,8 @@
 import React, {Component} from "react";
+import Weather from "../Weather";
 
-const APIkey = "54027aaa136404819ab799aaa96235ce";
-// https://api.darksky.net/forecast/54027aaa136404819ab799aaa96235ce/37.8267,-122.4233
-
+const DarkSkyAPIkey = "54027aaa136404819ab799aaa96235ce";
+const googleAPIkey = "AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg";
 const proxyurl = "https://cors-anywhere.herokuapp.com/";
 
 export default class WeatherContainer extends Component {
@@ -25,18 +25,22 @@ export default class WeatherContainer extends Component {
         }
     }
     getCityInfo = async () => {
+        console.log(this.props.location);
+        const fetchURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + this.props.location.toString + "&key=" + googleAPIkey + "&type=json";
+        console.log(fetchURL);
         try {
-            const cityInfo = await fetch(proxyurl + "https://www.zipcodeapi.com/rest/kvvPWEc8xSIUkUm2VoX1PJUwBhBda2YOMMMThHYTWlJnG4XqehphZPbkILDowXqE/info.json/" + this.props.zip + "/degrees");
+            const cityInfo = await fetch(proxyurl + fetchURL);
             const parsedCityInfo = await cityInfo.json();
             console.log(parsedCityInfo);
             this.setState({
-                city: parsedCityInfo.city,
-                lat: parsedCityInfo.lat,
-                long: parsedCityInfo.lng
+                city: parsedCityInfo.results[0].address_components[1].long_name,
+                lat: parsedCityInfo.results[0].geometry.location.lat,
+                long: parsedCityInfo.results[0].geometry.location.lng,
             });
             console.log("GOT HERE")
-            const weatherURL = "https://api.darksky.net/forecast/54027aaa136404819ab799aaa96235ce/" + this.state.lat + "," + this.state.long;
+            const weatherURL = "https://api.darksky.net/forecast/" + DarkSkyAPIkey + "/" + this.state.lat + "," + this.state.long;
             console.log("GOT HERE 2")
+            console.log(weatherURL);
             const weather = await fetch(proxyurl + weatherURL);
             const parsedWeather = await weather.json();
             console.log("GOT HERE 3")
@@ -57,6 +61,7 @@ export default class WeatherContainer extends Component {
         console.log(this.props.username)
         return(
             <div>
+                <Weather />
                 <h1>Hi, {this.props.username}!</h1>
                 {/* Show weather map of submitted */}
                 {this.state.apparentTemperature ? <h4>It feels like {this.state.apparentTemperature}°F right now in {this.state.city}.</h4>: <p>No temperature data</p>}

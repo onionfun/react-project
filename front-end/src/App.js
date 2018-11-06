@@ -5,6 +5,7 @@ import WeatherContainer from './WeatherContainer';
 import Login from './Login';
 
 // Dark sky API key: 54027aaa136404819ab799aaa96235ce
+// Google API key: AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg
 class App extends Component {
   constructor(){
     super();
@@ -39,7 +40,8 @@ class App extends Component {
         this.setState({
           loggedIn: true,
           // this isn't a real login - need to align it with the back-end to sort that out
-          username: parsedResponse.data.username
+          username: parsedResponse.data.username,
+          location: parsedResponse.data.location
         })
       } else if (parsedResponse.status == 500){
         console.log("INTERNAL SERVER ERROR")
@@ -47,13 +49,12 @@ class App extends Component {
     }catch(err){
       console.log(err, " error")
     }
-
-
   }
+
   render() {
     return (
       <div className="App">
-        { this.state.loggedIn ? <WeatherContainer username={this.state.username} zip={this.state.location} /> : <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} />}
+        { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} />}
       </div>
     );
   }
