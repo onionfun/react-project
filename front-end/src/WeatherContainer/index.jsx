@@ -26,7 +26,7 @@ export default class WeatherContainer extends Component {
     }
     getCityInfo = async () => {
         console.log(this.props.location);
-        const fetchURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + this.props.location.toString + "&key=" + googleAPIkey + "&type=json";
+        const fetchURL = "https://maps.googleapis.com/maps/api/geocode/json?address=" + this.props.location.toString() + "&key=" + googleAPIkey + "&type=json";
         console.log(fetchURL);
         try {
             const cityInfo = await fetch(proxyurl + fetchURL);
@@ -65,6 +65,7 @@ export default class WeatherContainer extends Component {
                 <h1>Hi, {this.props.username}!</h1>
                 {/* Show weather map of submitted */}
                 {this.state.apparentTemperature ? <h4>It feels like {this.state.apparentTemperature}°F right now in {this.state.city}.</h4>: <p>No temperature data</p>}
+                {/*this.state.apparentTemperature >= 70 ? <h4>Take off your pants and jacket</h4>: <h4>Don't forget your booties cuz it's cold out there</h4> */}
             </div>
         )
     }
