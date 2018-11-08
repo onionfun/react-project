@@ -4,6 +4,7 @@ import './App.css';
 import WeatherContainer from './WeatherContainer';
 import Login from './Login';
 import {Switch, Route} from "react-router-dom";
+import Profile from './Profile';
 
 // Dark sky API key: 54027aaa136404819ab799aaa96235ce
 // Google API key: AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg
@@ -13,8 +14,9 @@ class App extends Component {
     this.state = {
       username: "",
       password: "",
-      location: Number,
-      loggedIn: false
+      location: "",
+      id: "",
+      loggedIn: false,
     }
   }
   handleInputs = (e) => {
@@ -43,7 +45,8 @@ class App extends Component {
           loggedIn: true,
           // this isn't a real login - need to align it with the back-end to sort that out
           username: parsedResponse.data.username,
-          location: parsedResponse.data.location
+          location: parsedResponse.data.location,
+          id: parsedResponse.data._id
         })
       } else if (parsedResponse.status == 500){
         console.log("INTERNAL SERVER ERROR")
@@ -71,7 +74,8 @@ class App extends Component {
         this.setState({
           loggedIn: true,
           username: parsedLogged.data.username,
-          location: parsedLogged.data.location
+          location: parsedLogged.data.location,
+          id: parsedLogged.data._id
         })
       } else if (parsedLogged.status == 500){
         console.log("INTERNAL SERVER ERROR")
@@ -80,11 +84,35 @@ class App extends Component {
       console.log(err, " error")
     }
   }
-
+  submitEdits = async (e) => {
+    // e.preventDefault();
+    console.log("EDITS SUBMITTED");
+    console.log(this.state.id)
+    try{
+        const editedUser = await fetch("http://localhost:9000/users/" + this.state.id, {
+          method: 'PUT',
+          body: JSON.stringify(this.state),
+          headers: {
+            'Content-Type': 'application/json'
+        } 
+        });
+        const parsedEdit = await editedUser.json();
+        console.log(parsedEdit);
+        this.setState({
+            username: parsedEdit.data.username,
+            password: parsedEdit.data.password,
+            location: parsedEdit.data.location,
+        })
+        console.log(this.state.location);
+    }catch(err){
+      console.log("HERE")
+      console.log(err);
+    }
+}
   render(){
     return (
       <div className="App">
-        
+        <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/>
         {/* <Switch>
           <Route exact path="/" Component={Login}/>
           <Route exact path="/weather" Component={WeatherContainer}/> */}
