@@ -4,6 +4,7 @@ import './App.css';
 import WeatherContainer from './WeatherContainer';
 import Login from './Login';
 import Navi from './Navbar';
+import {Switch, Route} from "react-router-dom";
 
 // Dark sky API key: 54027aaa136404819ab799aaa96235ce
 // Google API key: AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg
@@ -84,8 +85,13 @@ class App extends Component {
     return (
       <div className="App">
         <Navi />
-        { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitLogin={this.submitLogin} submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} />}
+        {/* <Switch>
+          <Route exact path="/" Component={Login}/>
+          <Route exact path="/weather" Component={WeatherContainer}/> */}
+        { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} />}
         <Login deletedUser = {this.deletedUser} username={this.state.username} />
+
+        {/* </Switch> */}
       </div>
     );
   }
