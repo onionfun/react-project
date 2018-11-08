@@ -3,8 +3,10 @@ import "semantic-ui-css/semantic.min.css"; //{ Input, List} from
 import './App.css';
 import WeatherContainer from './WeatherContainer';
 import Login from './Login';
-import Navi from './Navbar';
-import {Switch, Route} from "react-router-dom";
+import Navi from './Navbar/Navbar';
+import Delete from './DeleteUser/DeleteContainer'
+import { Route, Link, Switch } from 'react-router-dom';
+import EditUser from './Editing/EditContainer'
 
 // Dark sky API key: 54027aaa136404819ab799aaa96235ce
 // Google API key: AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg
@@ -12,10 +14,11 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      username: "",
+      username: [],
       password: "",
       location: Number,
-      loggedIn: false
+      loggedIn: false,
+      id: ""
     }
   }
   handleInputs = (e) => {
@@ -44,7 +47,8 @@ class App extends Component {
           loggedIn: true,
           // this isn't a real login - need to align it with the back-end to sort that out
           username: parsedResponse.data.username,
-          location: parsedResponse.data.location
+          location: parsedResponse.data.location,
+          id: parsedResponse.data._id
         })
       } else if (parsedResponse.status == 500){
         console.log("INTERNAL SERVER ERROR")
@@ -59,6 +63,7 @@ class App extends Component {
     console.log("GOT LOGS")
     try{
       const loggedUser = await fetch('http://localhost:9000/auth/login', {
+        credentials: 'include',
         method: 'POST',
         body: JSON.stringify(this.state),
         headers: {
@@ -68,10 +73,12 @@ class App extends Component {
       const parsedLogged = await loggedUser.json();
       console.log(parsedLogged, ' login successful')
       if(parsedLogged.status == 200){
+        //this.state.history.push('/users');
         this.setState({
           loggedIn: true,
           username: parsedLogged.data.username,
-          location: parsedLogged.data.location
+          location: parsedLogged.data.location,
+          id: parsedLogged.data._id
         })
       } else if (parsedLogged.status == 500){
         console.log("INTERNAL SERVER ERROR")
@@ -81,17 +88,39 @@ class App extends Component {
     }
   }
 
+  deletedUser = async(id) => {
+    console.log("delete user " + id);
+
+    const deleted = await fetch("http://localhost:9000/users/" + id, {
+      //credentials: 'include',
+        method: "DELETE"
+    })
+    this.setState({
+      loggedIn: false,
+    })
+    const deletedParsed = await deleted.json();
+  //  if(deletedParsed.status === 200){
+  //       this.setState({
+  //           username: this.state.username.filter((user)=>{
+  //               return user._id !== id
+  //           })
+  //       })
+  //   }
+    console.log(deletedParsed)
+}
+
+
   render(){
     return (
       <div className="App">
-        <Navi />
-        {/* <Switch>
-          <Route exact path="/" Component={Login}/>
-          <Route exact path="/weather" Component={WeatherContainer}/> */}
-        { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} />}
-        <Login deletedUser = {this.deletedUser} username={this.state.username} />
 
-        {/* </Switch> */}
+        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id}/>
+        <Switch></Switch>
+
+        { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitLogin={this.submitLogin} submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} />}
+        {/* <Delete deletedUser = {this.deletedUser} username={this.state.username} /> */}
+
+
       </div>
     );
   }
