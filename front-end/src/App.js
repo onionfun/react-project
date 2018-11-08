@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import "semantic-ui-css/semantic.min.css";
+import "semantic-ui-css/semantic.min.css"; //{ Input, List} from
 import './App.css';
 import WeatherContainer from './WeatherContainer';
 import Login from './Login';
@@ -13,7 +13,7 @@ class App extends Component {
     this.state = {
       username: "",
       password: "",
-      location: 10000,
+      location: Number,
       loggedIn: false
     }
   }
@@ -28,6 +28,7 @@ class App extends Component {
     console.log("GOT HERE")
     console.log(this.state);
     try{
+      console.log("GOT HERE, TOO")
       const createUser = await fetch('http://localhost:9000/auth/register', {
         method: 'POST',
         body: JSON.stringify(this.state),
@@ -52,7 +53,35 @@ class App extends Component {
     }
   }
 
-  render() {
+  submitLogin = async (e) => {
+    e.preventDefault();
+    console.log("GOT LOGS")
+    console.log(this.state);
+    try{
+      const loggedUser = await fetch('http://localhost:9000/login', {
+        method: 'POST',
+        body: JSON.stringify(this.state),
+        headers: {
+          'Content-Type': 'application/json'
+        } 
+      });
+      const parsedLogged = await loggedUser.json();
+      console.log(parsedLogged, ' login successful')
+      if(parsedLogged.status == 200){
+        this.setState({
+          loggedIn: true,
+          username: parsedLogged.data.username,
+          location: parsedLogged.data.location
+        })
+      } else if (parsedLogged.status == 500){
+        console.log("INTERNAL SERVER ERROR")
+      }
+    }catch(err){
+      console.log(err, " error")
+    }
+  }
+
+  render(){
     return (
       <div className="App">
         
@@ -65,5 +94,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;

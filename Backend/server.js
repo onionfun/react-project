@@ -27,7 +27,7 @@ const corsOptions = {
 const authCon = require('./controllers/authcontroller');
 const usersCon = require('./controllers/userscontroller');
 
-app.use('/api/v1/users', usersCon);
+app.use('/users', usersCon); //if users doesn't work
 app.use('/auth', authCon);
 
 app.listen(process.env.PORT || 9000, () => {

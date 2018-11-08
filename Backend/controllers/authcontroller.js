@@ -8,8 +8,8 @@ router.post('/login', async (req, res)=>{
     try{
        const createUser = await User.findOne({username: req.body.username});
         console.log(createUser)
-        res.session.logged = true;
-        res.session.username = req.body.username;
+        req.session.logged = true;
+        req.session.username = req.body.username;
         console.log("GOT LOGGED P2")
         res.json({
             status: 200,
