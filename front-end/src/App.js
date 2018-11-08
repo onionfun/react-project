@@ -3,6 +3,10 @@ import "semantic-ui-css/semantic.min.css"; //{ Input, List} from
 import './App.css';
 import WeatherContainer from './WeatherContainer';
 import Login from './Login';
+import Navi from './Navbar/Navbar';
+import Delete from './DeleteUser/DeleteContainer'
+import { Route, Link, Switch } from 'react-router-dom';
+import EditUser from './Editing/EditContainer'
 import {Switch, Route} from "react-router-dom";
 import Profile from './Profile';
 
@@ -12,11 +16,11 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      username: "",
+      username: [],
       password: "",
-      location: "",
-      id: "",
+      location: Number,
       loggedIn: false,
+      id: ""
     }
   }
   handleInputs = (e) => {
@@ -59,9 +63,9 @@ class App extends Component {
   submitLogin = async (e) => {
     e.preventDefault();
     console.log("GOT LOGS")
-    console.log(this.state);
     try{
       const loggedUser = await fetch('http://localhost:9000/auth/login', {
+        credentials: 'include',
         method: 'POST',
         body: JSON.stringify(this.state),
         headers: {
@@ -71,6 +75,7 @@ class App extends Component {
       const parsedLogged = await loggedUser.json();
       console.log(parsedLogged, ' login successful')
       if(parsedLogged.status == 200){
+        //this.state.history.push('/users');
         this.setState({
           loggedIn: true,
           username: parsedLogged.data.username,
@@ -84,6 +89,28 @@ class App extends Component {
       console.log(err, " error")
     }
   }
+
+  deletedUser = async(id) => {
+    console.log("delete user " + id);
+
+    const deleted = await fetch("http://localhost:9000/users/" + id, {
+      //credentials: 'include',
+        method: "DELETE"
+    })
+    this.setState({
+      loggedIn: false,
+    })
+    const deletedParsed = await deleted.json();
+  //  if(deletedParsed.status === 200){
+  //       this.setState({
+  //           username: this.state.username.filter((user)=>{
+  //               return user._id !== id
+  //           })
+  //       })
+  //   }
+    console.log(deletedParsed)
+}
+
   submitEdits = async (e) => {
     // e.preventDefault();
     console.log("EDITS SUBMITTED");
@@ -113,6 +140,8 @@ class App extends Component {
     return (
       <div className="App">
         <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/>
+        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id}/>
+
         {/* <Switch>
           <Route exact path="/" Component={Login}/>
           <Route exact path="/weather" Component={WeatherContainer}/> */}

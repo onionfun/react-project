@@ -3,6 +3,7 @@ const router = express.Router();
 const User = require('../models/user')
 const session        = require('express-session')
 
+//login
 router.post('/login', async (req, res)=>{
     console.log("GOT LOGGED")
     try{
@@ -30,7 +31,7 @@ router.post('/register', async (req, res)=>{
     console.log(req.body);
     try{
         const newUser = await User.create(req.body);
-        // res.session.logged = true;
+        res.session.logged = true;
         req.session.username = req.body.username;
         console.log("GOT NEWUSER")
         res.json({
@@ -45,5 +46,7 @@ router.post('/register', async (req, res)=>{
         })
     }
 })
+
+
 
 module.exports = router;

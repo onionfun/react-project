@@ -5,14 +5,20 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem } from 'reactstrap';
+  NavItem, NavLink,} from 'reactstrap';
+  // 
+  // UncontrolledDropdown,
+  // DropdownToggle,
+  // DropdownMenu,
+  // DropdownItem 
+  import Search from '../SearchContainer/SearchContainer';
+  //import Delete from '../DeleteUser/DeleteContainer';
+  import App from '../App';
+  import { Link } from 'react-router-dom'
 
-export default class Example extends React.Component {
+
+  
+class Navi extends React.Component {
   constructor(props) {
     super(props);
 
@@ -30,33 +36,42 @@ export default class Example extends React.Component {
     return (
       <div>
         <Navbar color="light" light expand="md">
-          <NavbarBrand href="/">reactstrap</NavbarBrand>
+          <NavbarBrand href="/">Sweater Weather</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
+            <NavItem>  
+               <NavLink tag={Link} to='/'>Logout </NavLink>        
+              </NavItem>
+             
               <NavItem>
-                <NavLink href="/components/">Components</NavLink>
+                <NavLink tag={Link} to="/users/:id/edit">Edit Profile</NavLink> 
+
               </NavItem>
               <NavItem>
-                <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                <NavLink tag={Link} to="/users/:id" onClick={this.props.deletedUser.bind(null, this.props.id)}>Delete Yourself</NavLink>
+               
               </NavItem>
-              <UncontrolledDropdown nav inNavbar>
+              <NavItem>  
+                <Search />            
+              </NavItem>
+              {/* <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
-                  Options
+                  Location
                 </DropdownToggle>
                 <DropdownMenu right>
                   <DropdownItem>
-                    Option 1
+                    Edit
                   </DropdownItem>
                   <DropdownItem>
-                    Option 2
+                    Zip Code(input space)
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>
                     Reset
                   </DropdownItem>
                 </DropdownMenu>
-              </UncontrolledDropdown>
+              </UncontrolledDropdown> */}
             </Nav>
           </Collapse>
         </Navbar>
@@ -64,3 +79,5 @@ export default class Example extends React.Component {
     );
   }
 }
+
+export default Navi;
