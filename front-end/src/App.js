@@ -3,6 +3,7 @@ import "semantic-ui-css/semantic.min.css"; //{ Input, List} from
 import './App.css';
 import WeatherContainer from './WeatherContainer';
 import Login from './Login';
+import Navi from './Navbar';
 
 // Dark sky API key: 54027aaa136404819ab799aaa96235ce
 // Google API key: AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg
@@ -55,9 +56,8 @@ class App extends Component {
   submitLogin = async (e) => {
     e.preventDefault();
     console.log("GOT LOGS")
-    console.log(this.state);
     try{
-      const loggedUser = await fetch('http://localhost:9000/login', {
+      const loggedUser = await fetch('http://localhost:9000/auth/login', {
         method: 'POST',
         body: JSON.stringify(this.state),
         headers: {
@@ -83,7 +83,9 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-        { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} />}
+        <Navi />
+        { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitLogin={this.submitLogin} submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} />}
+        <Login deletedUser = {this.deletedUser} username={this.state.username} />
       </div>
     );
   }

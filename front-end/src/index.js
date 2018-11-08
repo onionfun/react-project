@@ -1,9 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { Router, Route, hashHistory } from 'react-router';
 
+// ReactDOM.render(
+//   <Router history={hashHistory}>
+//     <Route path="/" component={HomePage}/>
+//     <Route path="/blog" component={BlogPage}/>
+//   </Router>,
 ReactDOM.render(<App />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change

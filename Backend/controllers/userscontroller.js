@@ -2,21 +2,6 @@ const express = require ('express');
 const router = express.Router();
 const User = require('../models/user')
 
-router.get('/', async (res, req)=>{
-    console.log("omae o korosu")
-    try{
-        res.render("What")
-        const allUsers = await User.find();
-        res.json({
-            status: 200,
-            data: allUsers
-        })
-
-    }catch(err){
-        res.json(err)
-    }
-
-});
 router.post('/', async (res, req)=>{
     try{
         console.log(req.body, " is this it?")
@@ -58,19 +43,54 @@ router.get('/:id', async (res, req)=>{
          res.send(err)
      }
  });
- 
- router.delete('/:id', async (req, res)=>{
-     try{
-         const deleteUser = await User.findByIdAndRemove(req.params.id);
-               res.json({
-            status: 200,
-            data: deleteUser
+
+ //delete user
+router.delete('/:id', async (req, res) =>{
+    try{
+        console.log("Delete User");
+        const deletedUser = await User.findByIdAndDelete(req.params.id);
+        console.log(deletedUser);
+        res.json({
+            status: 200
         })
-     }catch(err){
-         res.send(err)
-     }
- })
- 
+        }catch(err){
+            res.json({
+                status: 500,
+                data: err
+            })
+        }
+    })
+
+    //edit user
+    router.get('/:id/edit', async (req, res)=>{
+        try {
+          const foundUser = await Users.findById(req.params.id);
+          //const foundUser = await User.findById(req.session.username);
+          console.log(foundUser);
+          res.render('users/edit.ejs', {
+            users: foundUser,
+          });
+      
+        } catch (err){
+            res.send(err)
+        }
+      });
+      
+      router.put('/:id', async (req, res)=>{
+       try {
+        const updatedUser = await Users.findByIdAndUpdate({$set:req.body}, (err) =>{ //req.session.userId, 
+            console.log(err);
+        });
+        console.log(updatedUser)
+        req.session.userId = updatedUser._id;
+        //console.log(req.session.username);
+        res.redirect("/users/");
+       } catch(err) {
+           console.log("ERROR", err)
+        res.send(err)
+       }
+      });
+
  
  
 
