@@ -42,7 +42,6 @@ export default class Weather extends Component {
     render(){
         return(
             <div className="big-container">
-                {console.log(this.state.cl)}
                 <Container>
                     <Row><div className="spacer"></div></Row>
                     <Row>

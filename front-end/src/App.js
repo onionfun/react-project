@@ -7,6 +7,8 @@ import Navi from './Navbar/Navbar';
 import Delete from './DeleteUser/DeleteContainer'
 import { Route, Link, Switch } from 'react-router-dom';
 import EditUser from './Editing/EditContainer'
+import {Switch, Route} from "react-router-dom";
+import Profile from './Profile';
 
 // Dark sky API key: 54027aaa136404819ab799aaa96235ce
 // Google API key: AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg
@@ -109,18 +111,42 @@ class App extends Component {
     console.log(deletedParsed)
 }
 
-
+  submitEdits = async (e) => {
+    // e.preventDefault();
+    console.log("EDITS SUBMITTED");
+    console.log(this.state.id)
+    try{
+        const editedUser = await fetch("http://localhost:9000/users/" + this.state.id, {
+          method: 'PUT',
+          body: JSON.stringify(this.state),
+          headers: {
+            'Content-Type': 'application/json'
+        } 
+        });
+        const parsedEdit = await editedUser.json();
+        console.log(parsedEdit);
+        this.setState({
+            username: parsedEdit.data.username,
+            password: parsedEdit.data.password,
+            location: parsedEdit.data.location,
+        })
+        console.log(this.state.location);
+    }catch(err){
+      console.log("HERE")
+      console.log(err);
+    }
+}
   render(){
     return (
       <div className="App">
-
+        <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/>
         <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id}/>
-        <Switch></Switch>
 
-        { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitLogin={this.submitLogin} submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} />}
-        {/* <Delete deletedUser = {this.deletedUser} username={this.state.username} /> */}
-
-
+        {/* <Switch>
+          <Route exact path="/" Component={Login}/>
+          <Route exact path="/weather" Component={WeatherContainer}/> */}
+        { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} submitLogin={this.submitLogin}/>}
+        {/* </Switch> */}
       </div>
     );
   }
