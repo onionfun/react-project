@@ -18,7 +18,7 @@ class Login extends Component {
                     </Label>
                     <br/>
                     <br/>
-                    <Button color="blue">Submit</Button>
+                    <Button color="blue" type="submit">Submit</Button>
                 </Form>
                 <div className="spacer"/>
                 <div className="spacer"/>

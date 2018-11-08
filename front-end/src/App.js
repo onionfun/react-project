@@ -58,7 +58,7 @@ class App extends Component {
     console.log("GOT LOGS")
     console.log(this.state);
     try{
-      const loggedUser = await fetch('http://localhost:9000/login', {
+      const loggedUser = await fetch('http://localhost:9000/auth/login', {
         method: 'POST',
         body: JSON.stringify(this.state),
         headers: {
@@ -88,7 +88,7 @@ class App extends Component {
         {/* <Switch>
           <Route exact path="/" Component={Login}/>
           <Route exact path="/weather" Component={WeatherContainer}/> */}
-        { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} />}
+        { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} submitLogin={this.submitLogin}/>}
         {/* </Switch> */}
       </div>
     );
