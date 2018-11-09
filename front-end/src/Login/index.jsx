@@ -1,11 +1,12 @@
 import React, {Component} from "react";
 import { Form, Label, Button } from "semantic-ui-react";
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 
 class Login extends Component {
     render(){
         return(
             <div>
+                {this.props.loggedIn ? <Redirect to="/weather"/>: <div/> }
                 <div className="spacer"/>
                 <h1>Login or Register</h1>
                 <h2>Login</h2>

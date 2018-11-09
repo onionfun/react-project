@@ -5,7 +5,7 @@ import WeatherContainer from './WeatherContainer';
 import Login from './Login';
 import Navi from './Navbar/Navbar';
 import Delete from './DeleteUser/DeleteContainer'
-import { Route, Link, Switch } from 'react-router-dom';
+import { Route, Link, Switch, Redirect } from 'react-router-dom';
 import EditUser from './Editing/EditContainer'
 import Profile from './Profile';
 
@@ -19,7 +19,7 @@ class App extends Component {
       password: "",
       location: Number,
       loggedIn: false,
-      id: ""
+      id: "",
     }
   }
   handleInputs = (e) => {
@@ -74,13 +74,13 @@ class App extends Component {
       const parsedLogged = await loggedUser.json();
       console.log(parsedLogged, ' login successful')
       if(parsedLogged.status == 200){
-        //this.state.history.push('/users');
         this.setState({
           loggedIn: true,
           username: parsedLogged.data.username,
           location: parsedLogged.data.location,
           id: parsedLogged.data._id
         })
+        console.log(this.state);
       } else if (parsedLogged.status == 500){
         console.log("INTERNAL SERVER ERROR")
       }
@@ -108,7 +108,7 @@ class App extends Component {
   //       })
   //   }
     console.log(deletedParsed)
-}
+  }
 
   submitEdits = async (e) => {
     // e.preventDefault();
@@ -150,16 +150,36 @@ handleLogout = async (e) => {
       <div className="App">
         <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/>
         <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} handleLogout={this.handleLogout} />
+  )
 
-        {/* <Switch>
-          <Route exact path="/" Component={Login}/>
-          <Route exact path="/weather" Component={WeatherContainer}/> */}
-        { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} submitLogin={this.submitLogin}/>}
-        {/* </Switch> */}
-      </div>
-    );
+  login = () => {
+    return <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} submitLogin={this.submitLogin} loggedIn={this.state.loggedIn}/>
   }
-}
+  weatherContainer = () => {
+    return <WeatherContainer username={this.state.username} location={this.state.location} />
+  }
+  profile = () => {
+    return <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/>
+  }
+  }
+  
+  {/* render(){ */}
+    {/* return ( */}
+      {/* <div className="App"> */}
+        {/* <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/> */}
+        {/* <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} loggedIn={this.state.loggedIn}/>
+
+        <Switch>
+          <Route exact path="/" render={this.login}/>
+          <Route exact path="/login" render={this.login}/>
+          <Route exact path="/weather" render={this.weatherContainer}/>
+          <Route exact path="/user/edit" render={this.profile}/>
+        </Switch> */}
+        {/* { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} submitLogin={this.submitLogin}/>} */}
+      {/* </div> */}
+    {/* ); */}
+  {/* } */}
+
 
 
 export default App;
