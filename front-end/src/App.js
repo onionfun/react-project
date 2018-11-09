@@ -92,7 +92,7 @@ class App extends Component {
   deletedUser = async(id) => {
     console.log("delete user " + id);
 
-    const deleted = await fetch("http://localhost:9000/users/" + id, {
+    const deleted = await fetch("http://localhost:9000/users/" + this.state.id, {
       //credentials: 'include',
         method: "DELETE"
     })
@@ -134,7 +134,23 @@ class App extends Component {
       console.log("HERE")
       console.log(err);
     }
-  }
+}
+
+handleLogout = async (e) => {
+  console.log('GOT LOGOUT')
+  await this.setState({
+    loggedIn: false
+  })
+  console.log(this.state.loggedIn)
+  //this.props.history.push("/users");
+}
+
+  render(){
+    return (
+      <div className="App">
+        <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/>
+        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} handleLogout={this.handleLogout} />
+  )
 
   login = () => {
     return <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} submitLogin={this.submitLogin} loggedIn={this.state.loggedIn}/>
@@ -145,24 +161,25 @@ class App extends Component {
   profile = () => {
     return <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/>
   }
+  }
   
-  render(){
-    return (
-      <div className="App">
+  {/* render(){ */}
+    {/* return ( */}
+      {/* <div className="App"> */}
         {/* <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/> */}
-        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} loggedIn={this.state.loggedIn}/>
+        {/* <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} loggedIn={this.state.loggedIn}/>
 
         <Switch>
           <Route exact path="/" render={this.login}/>
           <Route exact path="/login" render={this.login}/>
           <Route exact path="/weather" render={this.weatherContainer}/>
           <Route exact path="/user/edit" render={this.profile}/>
-        </Switch>
+        </Switch> */}
         {/* { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} submitLogin={this.submitLogin}/>} */}
-      </div>
-    );
-  }
-}
+      {/* </div> */}
+    {/* ); */}
+  {/* } */}
+
 
 
 export default App;
