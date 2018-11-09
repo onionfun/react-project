@@ -48,7 +48,7 @@ class Navi extends React.Component {
                   <NavLink tag={Link} to="/weather">Check the weather</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} to="/user/edit">Edit Profile</NavLink>
+                {this.props.loggedIn ? <NavLink tag={Link} to="/user/edit">Edit Profile</NavLink> : <div/>}
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} to="/user/delete" onClick={this.props.deletedUser.bind(null, this.props.id)}>Delete Yourself</NavLink>
