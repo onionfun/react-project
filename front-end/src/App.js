@@ -92,7 +92,7 @@ class App extends Component {
   deletedUser = async(id) => {
     console.log("delete user " + id);
 
-    const deleted = await fetch("http://localhost:9000/users/" + id, {
+    const deleted = await fetch("http://localhost:9000/users/" + this.state.id, {
       //credentials: 'include',
         method: "DELETE"
     })
@@ -142,14 +142,14 @@ handleLogout = async (e) => {
     loggedIn: false
   })
   console.log(this.state.loggedIn)
-  //this.props.history.push("/");
+  //this.props.history.push("/users");
 }
 
   render(){
     return (
       <div className="App">
         <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/>
-        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id}/>
+        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} handleLogout={this.handleLogout} />
 
         {/* <Switch>
           <Route exact path="/" Component={Login}/>
