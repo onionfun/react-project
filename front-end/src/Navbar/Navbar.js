@@ -41,11 +41,11 @@ class Navi extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
             <NavItem>  
-               <NavLink tag={Link} to='/'>Logout </NavLink>        
+               <NavLink tag={Link} to="/users/logout" onClick={this.props.handleLogout}>Logout </NavLink>        
               </NavItem>
              
               <NavItem>
-                <NavLink tag={Link} to="/users/:id/edit">Edit Profile</NavLink> 
+                <NavLink tag={Link} to="/user/:id/edit">Edit Profile</NavLink> 
 
               </NavItem>
               <NavItem>

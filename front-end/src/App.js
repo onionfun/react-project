@@ -7,7 +7,6 @@ import Navi from './Navbar/Navbar';
 import Delete from './DeleteUser/DeleteContainer'
 import { Route, Link, Switch } from 'react-router-dom';
 import EditUser from './Editing/EditContainer'
-import {Switch, Route} from "react-router-dom";
 import Profile from './Profile';
 
 // Dark sky API key: 54027aaa136404819ab799aaa96235ce
@@ -136,6 +135,16 @@ class App extends Component {
       console.log(err);
     }
 }
+
+handleLogout = async (e) => {
+  console.log('GOT LOGOUT')
+  await this.setState({
+    loggedIn: false
+  })
+  console.log(this.state.loggedIn)
+  //this.props.history.push("/");
+}
+
   render(){
     return (
       <div className="App">
