@@ -145,13 +145,6 @@ handleLogout = async (e) => {
   //this.props.history.push("/users");
 }
 
-  render(){
-    return (
-      <div className="App">
-        <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/>
-        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} handleLogout={this.handleLogout} />
-  )
-
   login = () => {
     return <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} submitLogin={this.submitLogin} loggedIn={this.state.loggedIn}/>
   }
@@ -161,25 +154,21 @@ handleLogout = async (e) => {
   profile = () => {
     return <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/>
   }
-  }
   
-  {/* render(){ */}
-    {/* return ( */}
-      {/* <div className="App"> */}
-        {/* <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/> */}
-        {/* <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} loggedIn={this.state.loggedIn}/>
+  render(){ 
+     return (  <div className="App"> 
+         <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} loggedIn={this.state.loggedIn}/>
 
         <Switch>
           <Route exact path="/" render={this.login}/>
           <Route exact path="/login" render={this.login}/>
           <Route exact path="/weather" render={this.weatherContainer}/>
           <Route exact path="/user/edit" render={this.profile}/>
-        </Switch> */}
-        {/* { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} submitLogin={this.submitLogin}/>} */}
-      {/* </div> */}
-    {/* ); */}
-  {/* } */}
-
+        </Switch>
+       </div>
+     ); 
+   }
+  }
 
 
 export default App;
