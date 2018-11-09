@@ -70,16 +70,9 @@ export default class Weather extends Component {
                                 <div className="clothing-image">
                                     <img src={this.state.clothingImage}/>
                                 </div>
-                                {/* <br/> */}
                             </div>
                         </Col>
                     </Row>
-                    {/* <Alert color="primary">
-                        this an alert
-                    </Alert> */}
-                    {/* <Button color="danger">
-                        click me daddy
-                    </Button> */}
                 </Container>
             </div>
         )
