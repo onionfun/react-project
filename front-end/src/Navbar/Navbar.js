@@ -15,6 +15,7 @@ import {
   //import Delete from '../DeleteUser/DeleteContainer';
   import App from '../App';
   import { Link } from 'react-router-dom'
+import Profile from '../Profile';
 
 
   
@@ -40,17 +41,17 @@ class Navi extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-            <NavItem>  
-               <NavLink tag={Link} to='/'>Logout </NavLink>        
-              </NavItem>
-             
-              <NavItem>
-                <NavLink tag={Link} to="/users/:id/edit">Edit Profile</NavLink> 
-
+              <NavItem>  
+                {this.props.loggedIn ? <NavLink tag={Link} to='/login'>Login </NavLink> : <NavLink tag={Link} to='/'>Logout </NavLink>}
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} to="/users/:id" onClick={this.props.deletedUser.bind(null, this.props.id)}>Delete Yourself</NavLink>
-               
+                  <NavLink tag={Link} to="/weather">Check the weather</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} to="/user/edit">Edit Profile</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink tag={Link} to="/user/delete" onClick={this.props.deletedUser.bind(null, this.props.id)}>Delete Yourself</NavLink>
               </NavItem>
               <NavItem>  
                 <Search />            

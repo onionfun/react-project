@@ -59,8 +59,11 @@ router.post('/', async (res, req)=>{
             data: updateUser
         })
      }catch(err){
-         res.send(err)
-     }
+         res.json({
+             status: 500,
+             data: err
+         })
+     };
  });
 
 
