@@ -11,7 +11,7 @@ import {
   // DropdownToggle,
   // DropdownMenu,
   // DropdownItem 
-  import Search from '../SearchContainer/SearchContainer';
+  import Search from '../SearchContainer';
   //import Delete from '../DeleteUser/DeleteContainer';
   import App from '../App';
   import { Link } from 'react-router-dom'
@@ -42,7 +42,7 @@ class Navi extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>  
-                {this.props.loggedIn ? <NavLink tag={Link} to='/login'>Login </NavLink> : <NavLink tag={Link} to='/'>Logout </NavLink>}
+                {this.props.loggedIn ? <NavLink tag={Link} to='/' onClick={this.props.logout}>Logout </NavLink> : <NavLink tag={Link} to='/login'>Login </NavLink> }
               </NavItem>
               <NavItem>
                   <NavLink tag={Link} to="/weather">Check the weather</NavLink>

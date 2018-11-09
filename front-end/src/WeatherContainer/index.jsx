@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import Weather from "../Weather";
+import { Redirect } from "react-router-dom";
 
 const DarkSkyAPIkey = "54027aaa136404819ab799aaa96235ce";
 const googleAPIkey = "AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg";
@@ -61,6 +62,7 @@ export default class WeatherContainer extends Component {
         console.log(this.props.username)
         return(
             <div>
+                {this.props.loggedIn ? <div/> : <Redirect to="/login"/> }
                 {this.state.apparentTemperature ? <Weather 
                     temp={this.state.apparentTemperature} 
                     city={this.state.city} 

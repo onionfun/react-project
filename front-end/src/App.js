@@ -4,9 +4,7 @@ import './App.css';
 import WeatherContainer from './WeatherContainer';
 import Login from './Login';
 import Navi from './Navbar/Navbar';
-import Delete from './DeleteUser/DeleteContainer'
 import { Route, Link, Switch, Redirect } from 'react-router-dom';
-import EditUser from './Editing/EditContainer'
 import Profile from './Profile';
 
 // Dark sky API key: 54027aaa136404819ab799aaa96235ce
@@ -135,12 +133,17 @@ class App extends Component {
       console.log(err);
     }
   }
+  logout = () => {
+    this.setState({
+      loggedIn: false
+    })
+  }
 
   login = () => {
     return <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} submitLogin={this.submitLogin} loggedIn={this.state.loggedIn}/>
   }
   weatherContainer = () => {
-    return <WeatherContainer username={this.state.username} location={this.state.location} />
+    return <WeatherContainer username={this.state.username} location={this.state.location} loggedIn={this.state.loggedIn} />
   }
   profile = () => {
     return <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/>
@@ -150,7 +153,7 @@ class App extends Component {
     return (
       <div className="App">
         {/* <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/> */}
-        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} loggedIn={this.state.loggedIn}/>
+        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} loggedIn={this.state.loggedIn} logout={this.logout}/>
 
         <Switch>
           <Route exact path="/" render={this.login}/>
