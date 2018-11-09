@@ -60,8 +60,6 @@ export default class Weather extends Component {
                         <Col xs="4">
                             <div className="weather-box">
                                 <p>It's {this.props.temp}°F.</p>
-                                <br/>
-                                <p>It's sunny af.</p>
                             </div>
                         </Col>
                         <Col xs="8">

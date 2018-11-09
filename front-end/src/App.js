@@ -129,11 +129,9 @@ class App extends Component {
 
   handleLogout = async (e) => {
     console.log('GOT LOGOUT')
-    await this.setState({
+    this.setState({
       loggedIn: false
     })
-    console.log(this.state.loggedIn)
-    //this.props.history.push("/users");
   }
 
   login = () => {
@@ -149,7 +147,7 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} loggedIn={this.state.loggedIn}/>
+        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} loggedIn={this.state.loggedIn} handleLogout={this.handleLogout}/>
 
         <Switch>
           <Route exact path="/" render={this.login}/>
