@@ -42,13 +42,13 @@ class Navi extends React.Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>  
-                {this.props.loggedIn ? <NavLink tag={Link} to='/login'>Login </NavLink> : <NavLink tag={Link} to="/users/logout" onClick={this.props.handleLogout}>Logout </NavLink>}
+                {this.props.loggedIn ? <NavLink tag={Link} to="/" onClick={this.props.handleLogout}>Logout </NavLink> : <NavLink tag={Link} to='/login'>Login </NavLink> }
               </NavItem>
               <NavItem>
                   <NavLink tag={Link} to="/weather">Check the weather</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink tag={Link} to="/user/edit">Edit Profile</NavLink>
+                {this.props.loggedIn ? <NavLink tag={Link} to="/user/edit">Edit Profile</NavLink> : <div/>}
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} to="/user/delete" onClick={this.props.deletedUser.bind(null, this.props.id)}>Delete Yourself</NavLink>
@@ -56,23 +56,6 @@ class Navi extends React.Component {
               <NavItem>  
                 <Search />            
               </NavItem>
-              {/* <UncontrolledDropdown nav inNavbar>
-                <DropdownToggle nav caret>
-                  Location
-                </DropdownToggle>
-                <DropdownMenu right>
-                  <DropdownItem>
-                    Edit
-                  </DropdownItem>
-                  <DropdownItem>
-                    Zip Code(input space)
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    Reset
-                  </DropdownItem>
-                </DropdownMenu>
-              </UncontrolledDropdown> */}
             </Nav>
           </Collapse>
         </Navbar>

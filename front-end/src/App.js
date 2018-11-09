@@ -4,9 +4,7 @@ import './App.css';
 import WeatherContainer from './WeatherContainer';
 import Login from './Login';
 import Navi from './Navbar/Navbar';
-import Delete from './DeleteUser/DeleteContainer'
-import { Route, Link, Switch, Redirect } from 'react-router-dom';
-import EditUser from './Editing/EditContainer'
+import { Route, Switch } from 'react-router-dom';
 import Profile from './Profile';
 
 // Dark sky API key: 54027aaa136404819ab799aaa96235ce
@@ -100,13 +98,6 @@ class App extends Component {
       loggedIn: false,
     })
     const deletedParsed = await deleted.json();
-  //  if(deletedParsed.status === 200){
-  //       this.setState({
-  //           username: this.state.username.filter((user)=>{
-  //               return user._id !== id
-  //           })
-  //       })
-  //   }
     console.log(deletedParsed)
   }
 
@@ -134,30 +125,29 @@ class App extends Component {
       console.log("HERE")
       console.log(err);
     }
-}
+  }
 
-handleLogout = async (e) => {
-  console.log('GOT LOGOUT')
-  await this.setState({
-    loggedIn: false
-  })
-  console.log(this.state.loggedIn)
-  //this.props.history.push("/users");
-}
+  handleLogout = async (e) => {
+    console.log('GOT LOGOUT')
+    this.setState({
+      loggedIn: false
+    })
+  }
 
   login = () => {
     return <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} submitLogin={this.submitLogin} loggedIn={this.state.loggedIn}/>
   }
   weatherContainer = () => {
-    return <WeatherContainer username={this.state.username} location={this.state.location} />
+    return <WeatherContainer username={this.state.username} location={this.state.location} loggedIn={this.state.loggedIn}/>
   }
   profile = () => {
     return <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/>
   }
   
-  render(){ 
-     return (  <div className="App"> 
-         <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} loggedIn={this.state.loggedIn}/>
+  render(){
+    return (
+      <div className="App">
+        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} loggedIn={this.state.loggedIn} handleLogout={this.handleLogout}/>
 
         <Switch>
           <Route exact path="/" render={this.login}/>
@@ -165,10 +155,9 @@ handleLogout = async (e) => {
           <Route exact path="/weather" render={this.weatherContainer}/>
           <Route exact path="/user/edit" render={this.profile}/>
         </Switch>
-       </div>
-     ); 
-   }
+      </div>
+    );
   }
-
+}
 
 export default App;
