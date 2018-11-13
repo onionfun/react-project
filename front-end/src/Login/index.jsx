@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { Form, Label, Button } from "semantic-ui-react";
-import { Route, Switch, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
     render(){

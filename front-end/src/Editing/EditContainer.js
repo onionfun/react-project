@@ -1,26 +1,43 @@
-import React from 'react';
+import React, {Component} from 'react';
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
 
+class EditUser extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      modal: false
+    };
 
-const EditUser = (props) => {
+    this.toggle = this.toggle.bind(this);
+  }
 
-  return (
-    <div>
-      <h4>Edit User</h4>
-      <form onSubmit={props.closeAndEdit}>
-        <label>
-          Edit Username:
-          <br/>
-          <input type='text' name='username' value={props.userToEdit.username} onChange={props.handleEditChange}/>
-        </label>
-        <label>
-          Edit Location:
-          <br/>
-          <input type='text' name='location' value={props.userToEdit.location} onChange={props.handleEditChange}/>
-        </label>
-        <button type='submit'>Edit User</button>
-      </form>
-    </div>
-    )
+  toggle() {
+    this.setState({
+      modal: !this.state.modal
+    });
+  }
+  render(){
+    return (
+      <div>
+        <Modal isOpen={this.state.modal} toggle={this.props.toggle}>
+          <h4>Edit User</h4>
+          <form onSubmit={this.props.closeAndEdit}>
+            <label>
+              Edit Username:
+              <br/>
+              <input type='text' name='username' value={this.props.userToEdit.username} onChange={this.props.handleEditChange}/>
+            </label>
+            <label>
+              Edit Location:
+              <br/>
+              <input type='text' name='location' value={this.props.userToEdit.location} onChange={this.props.handleEditChange}/>
+            </label>
+            <button type='submit'>Edit User</button>
+          </form>
+        </Modal>
+      </div>
+      )
+  }
 }
 
 export default EditUser;

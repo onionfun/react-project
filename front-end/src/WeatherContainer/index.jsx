@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import Weather from "../Weather";
-import {Redirect} from "react-router-dom";
+import { Redirect } from "react-router-dom";
 
 const DarkSkyAPIkey = "54027aaa136404819ab799aaa96235ce";
 const googleAPIkey = "AIzaSyBHLett8djBo62dDXj0EjCimF8Rd6E8cxg";
