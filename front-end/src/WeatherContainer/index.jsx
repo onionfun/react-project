@@ -52,17 +52,18 @@ export default class WeatherContainer extends Component {
         }
     }
     componentDidMount(){
+        if(this.props.loggedIn){
         this.getCityInfo().then((weather) => {
             this.setState({
                 apparentTemperature: weather.currently.apparentTemperature,
             })
-        })
+        })}
     }
     render(){
         console.log(this.props.username)
         return(
             <div>
-                {this.props.loggedIn ? <div/> : <Redirect to="/login"/> }
+                {this.props.loggedIn ? <div/> : <Redirect to="/"/>}
                 {this.state.apparentTemperature ? <Weather 
                     temp={this.state.apparentTemperature} 
                     city={this.state.city} 

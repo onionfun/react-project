@@ -31,7 +31,7 @@ router.post('/register', async (req, res)=>{
     console.log(req.body);
     try{
         const newUser = await User.create(req.body);
-        res.session.logged = true;
+        req.session.logged = true;
         req.session.username = req.body.username;
         console.log("GOT NEWUSER")
         res.json({
@@ -45,7 +45,24 @@ router.post('/register', async (req, res)=>{
             data: err
         })
     }
-})
+});
+
+// logout
+router.get('/logout', (req, res, next) => {
+  if(req.session) {
+    // delete session object
+    req.session.destroy((err) => {
+      if(err) {
+        return next(err);
+      } else {
+        return res.json({
+          status: 200,
+          data: 'logout succesful'
+        });
+      }
+    });
+  }
+});
 
 
 

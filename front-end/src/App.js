@@ -4,7 +4,7 @@ import './App.css';
 import WeatherContainer from './WeatherContainer';
 import Login from './Login';
 import Navi from './Navbar/Navbar';
-import { Route, Link, Switch, Redirect } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import Profile from './Profile';
 
 // Dark sky API key: 54027aaa136404819ab799aaa96235ce
@@ -90,7 +90,7 @@ class App extends Component {
   deletedUser = async(id) => {
     console.log("delete user " + id);
 
-    const deleted = await fetch("http://localhost:9000/users/" + id, {
+    const deleted = await fetch("http://localhost:9000/users/" + this.state.id, {
       //credentials: 'include',
         method: "DELETE"
     })
@@ -98,20 +98,11 @@ class App extends Component {
       loggedIn: false,
     })
     const deletedParsed = await deleted.json();
-  //  if(deletedParsed.status === 200){
-  //       this.setState({
-  //           username: this.state.username.filter((user)=>{
-  //               return user._id !== id
-  //           })
-  //       })
-  //   }
     console.log(deletedParsed)
   }
 
   submitEdits = async (e) => {
-    // e.preventDefault();
-    console.log("EDITS SUBMITTED");
-    console.log(this.state.id)
+    e.preventDefault();
     try{
         const editedUser = await fetch("http://localhost:9000/users/" + this.state.id, {
           method: 'PUT',
@@ -121,7 +112,6 @@ class App extends Component {
         } 
         });
         const parsedEdit = await editedUser.json();
-        console.log(parsedEdit);
         this.setState({
             username: parsedEdit.data.username,
             password: parsedEdit.data.password,
@@ -129,11 +119,12 @@ class App extends Component {
         })
         console.log(this.state.location);
     }catch(err){
-      console.log("HERE")
       console.log(err);
     }
   }
-  logout = () => {
+
+  handleLogout = async (e) => {
+    console.log('GOT LOGOUT')
     this.setState({
       loggedIn: false
     })
@@ -152,8 +143,7 @@ class App extends Component {
   render(){
     return (
       <div className="App">
-        {/* <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/> */}
-        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} loggedIn={this.state.loggedIn} logout={this.logout}/>
+        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} loggedIn={this.state.loggedIn} handleLogout={this.handleLogout}/>
 
         <Switch>
           <Route exact path="/" render={this.login}/>
@@ -161,11 +151,9 @@ class App extends Component {
           <Route exact path="/weather" render={this.weatherContainer}/>
           <Route exact path="/user/edit" render={this.profile}/>
         </Switch>
-        {/* { this.state.loggedIn ? <WeatherContainer username={this.state.username} location={this.state.location} /> : <Login submitRegistration={this.submitRegistration} handleInputs={this.handleInputs} submitLogin={this.submitLogin}/>} */}
       </div>
     );
   }
 }
-
 
 export default App;

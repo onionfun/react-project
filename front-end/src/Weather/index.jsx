@@ -60,8 +60,6 @@ export default class Weather extends Component {
                         <Col xs="4">
                             <div className="weather-box">
                                 <p>It's {this.props.temp}°F.</p>
-                                <br/>
-                                <p>It's sunny af.</p>
                             </div>
                         </Col>
                         <Col xs="8">
@@ -70,16 +68,9 @@ export default class Weather extends Component {
                                 <div className="clothing-image">
                                     <img src={this.state.clothingImage}/>
                                 </div>
-                                {/* <br/> */}
                             </div>
                         </Col>
                     </Row>
-                    {/* <Alert color="primary">
-                        this an alert
-                    </Alert> */}
-                    {/* <Button color="danger">
-                        click me daddy
-                    </Button> */}
                 </Container>
             </div>
         )
