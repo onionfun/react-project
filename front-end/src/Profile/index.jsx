@@ -6,7 +6,7 @@ import {Redirect} from "react-router-dom";
 export default class Profile extends Component{
     render(){
         return(
-            <div>
+            <div className="big-container">
                 {this.props.isOpen ? <div/> : <Redirect to="/weather"/>}
                 <Modal isOpen={this.props.isOpen} toggle={this.props.toggle}>
                     <ModalHeader toggle={this.toggle}>Edit Your Profile</ModalHeader>
