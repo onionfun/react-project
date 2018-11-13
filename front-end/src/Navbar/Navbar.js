@@ -20,26 +20,13 @@ import Profile from '../Profile';
 
   
 class Navi extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false
-    };
-  }
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen
-    });
-  }
   render() {
     return (
       <div>
         <Navbar color="light" light expand="md">
           <NavbarBrand href="/">Sweater Weather</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
-          <Collapse isOpen={this.state.isOpen} navbar>
+          <Collapse  navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>  
                 {this.props.loggedIn ? <NavLink tag={Link} to="/" onClick={this.props.handleLogout}>Logout </NavLink> : <NavLink tag={Link} to='/login'>Login </NavLink> }
@@ -48,7 +35,7 @@ class Navi extends React.Component {
                   <NavLink tag={Link} to="/weather">Check the weather</NavLink>
               </NavItem>
               <NavItem>
-                {this.props.loggedIn ? <NavLink tag={Link} to="/user/edit">Edit Profile</NavLink> : <div/>}
+                {this.props.loggedIn ? <NavLink tag={Link} onClick={this.props.toggle} to="/user/edit">Edit Profile</NavLink> : <div/>}
               </NavItem>
               <NavItem>
                 <NavLink tag={Link} to="/user/delete" onClick={this.props.deletedUser.bind(null, this.props.id)}>Delete Yourself</NavLink>

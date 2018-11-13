@@ -18,7 +18,9 @@ class App extends Component {
       location: Number,
       loggedIn: false,
       id: "",
-    }
+      isOpen: false
+    };
+    this.toggle = this.toggle.bind(this)
   }
   handleInputs = (e) => {
     this.setState({
@@ -137,19 +139,23 @@ class App extends Component {
     return <WeatherContainer username={this.state.username} location={this.state.location} loggedIn={this.state.loggedIn} />
   }
   profile = () => {
-    return <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id}/>
+    return <Profile handleInputs={this.handleInputs} username={this.state.username} password={this.state.password} location={this.state.location} submitEdits={this.submitEdits} id={this.state.id} isOpen={this.state.isOpen} toggle={this.toggle}/>
   }
-  
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
   render(){
     return (
       <div className="App">
-        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} loggedIn={this.state.loggedIn} handleLogout={this.handleLogout}/>
-
+        <Navi deletedUser ={this.deletedUser} username={this.state.username} id={this.state.id} loggedIn={this.state.loggedIn} handleLogout={this.handleLogout} toggle={this.toggle}/>
+        {/* {this.state.isOpen ? <div/> : this.profile} */}
         <Switch>
           <Route exact path="/" render={this.login}/>
           <Route exact path="/login" render={this.login}/>
           <Route exact path="/weather" render={this.weatherContainer}/>
-          <Route exact path="/user/edit" render={this.profile}/>
+          <Route exact path="/user/edit" render={this.profile} />
         </Switch>
       </div>
     );
