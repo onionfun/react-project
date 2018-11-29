@@ -34,7 +34,7 @@ class App extends Component {
     console.log(this.state);
     try{
       console.log("GOT HERE, TOO")
-      const createUser = await fetch('http://localhost:9000/auth/register', {
+      const createUser = await fetch(process.env.REACT_APP_BACKEND_SERVER_ADDRESS + "/auth/register", {
         method: 'POST',
         body: JSON.stringify(this.state),
         headers: {
@@ -63,7 +63,7 @@ class App extends Component {
     e.preventDefault();
     console.log("GOT LOGS")
     try{
-      const loggedUser = await fetch('http://localhost:9000/auth/login', {
+      const loggedUser = await fetch(process.env.REACT_APP_BACKEND_SERVER_ADDRESS + '/auth/login', {
         credentials: 'include',
         method: 'POST',
         body: JSON.stringify(this.state),
@@ -92,7 +92,7 @@ class App extends Component {
   deletedUser = async(id) => {
     console.log("delete user " + id);
 
-    const deleted = await fetch("http://localhost:9000/users/" + this.state.id, {
+    const deleted = await fetch(process.env.REACT_APP_BACKEND_SERVER_ADDRESS+ "/users/" + this.state.id, {
       //credentials: 'include',
         method: "DELETE"
     })
@@ -106,7 +106,7 @@ class App extends Component {
   submitEdits = async (e) => {
     e.preventDefault();
     try{
-        const editedUser = await fetch("http://localhost:9000/users/" + this.state.id, {
+        const editedUser = await fetch(process.env.REACT_APP_BACKEND_SERVER_ADDRESS+ "/users/" + this.state.id, {
           method: 'PUT',
           body: JSON.stringify(this.state),
           headers: {
