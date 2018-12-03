@@ -47,6 +47,35 @@ code {
   /* background-image: contain; */
 }
 
+.hot-container{
+  background-color: rgb(238, 255, 0);
+  width: 100%;
+  height: 800px;
+  /* background-image: contain; */
+}
+
+.warm-container{
+  background-color: rgb(250, 100, 150);
+  width: 100%;
+  height: 800px;
+  /* background-image: contain; */
+}
+
+.cool-container{
+  background-color: rgb(150, 250, 250);
+  width: 100%;
+  height: 800px;
+  /* background-image: contain; */
+}
+
+.cold-container{
+  background-color: rgb(50, 150, 250);
+  width: 100%;
+  height: 800px;
+  /* background-image: contain; */
+}
+
+
 #weather-container{
   margin-left: 0;
   margin-right: 0;

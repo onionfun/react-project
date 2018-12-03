@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Alert, Container, Row, Col } from "reactstrap";
+import { Container, Row, Col } from "reactstrap";
 import shorts from "../img/shorts.png";
 import santa from "../img/santa.png";
 import jeans from "../img/jeans.png";
@@ -10,38 +10,43 @@ export default class Weather extends Component {
         super();
         this.state = {
             clothingFromTemp: null,
-            clothingImage: null
+            clothingImage: null,
+            backgroundImageType: "big-container"
         }
     }
     componentDidMount(){
         if(this.props.temp > 75){
             this.setState({
                 clothingFromTemp: "It's shorts weather.",
-                clothingImage: shorts
+                clothingImage: shorts,
+                backgroundImageType: "hot-container"
             })
         }
         else if(this.props.temp < 75 && this.props.temp > 65){
             this.setState({
                 clothingFromTemp: "It's normal-clothes weather.",
-                clothingImage: jeans
+                clothingImage: jeans,
+                backgroundImageType: "warm-container"
             })
         }
         else if(this.props.temp < 65 && this.props.temp > 45){
             this.setState({
                 clothingFromTemp: "Make sure you grab a jacket.",
-                clothingImage: jacket
+                clothingImage: jacket,
+                backgroundImageType: "cool-container"
             })
         }
         else if(this.props.temp < 45){
             this.setState({
                 clothingFromTemp: "It's cold af.",
-                clothingImage: santa
+                clothingImage: santa,
+                backgroundImageType: "cold-container"
             })
         }
     }
     render(){
         return(
-            <div className="big-container">
+            <div className={this.state.backgroundImageType}>
                 <Container>
                     <Row><div className="spacer"></div></Row>
                     <Row>

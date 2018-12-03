@@ -43,7 +43,7 @@ class App extends Component {
       });
       const parsedResponse = await createUser.json();
       console.log(parsedResponse, ' this is response')
-      if(parsedResponse.status == 200){
+      if(parsedResponse.status === 200){
         this.setState({
           loggedIn: true,
           // this isn't a real login - need to align it with the back-end to sort that out
@@ -51,7 +51,7 @@ class App extends Component {
           location: parsedResponse.data.location,
           id: parsedResponse.data._id
         })
-      } else if (parsedResponse.status == 500){
+      } else if (parsedResponse.status === 500){
         console.log("INTERNAL SERVER ERROR")
       }
     }catch(err){
@@ -73,7 +73,7 @@ class App extends Component {
       });
       const parsedLogged = await loggedUser.json();
       console.log(parsedLogged, ' login successful')
-      if(parsedLogged.status == 200){
+      if(parsedLogged.status === 200){
         this.setState({
           loggedIn: true,
           username: parsedLogged.data.username,
@@ -81,7 +81,7 @@ class App extends Component {
           id: parsedLogged.data._id
         })
         console.log(this.state);
-      } else if (parsedLogged.status == 500){
+      } else if (parsedLogged.status === 500){
         console.log("INTERNAL SERVER ERROR")
       }
     }catch(err){

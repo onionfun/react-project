@@ -13,9 +13,9 @@ import {
   // DropdownItem 
   import Search from '../SearchContainer';
   //import Delete from '../DeleteUser/DeleteContainer';
-  import App from '../App';
+  // import App from '../App';
   import { Link } from 'react-router-dom'
-import Profile from '../Profile';
+// import Profile from '../Profile';
 
 
   
