@@ -52,55 +52,36 @@ router.post('/', async (res, req)=>{
  
  
  router.put('/:id', async (req, res)=>{
+    console.log(req.body.location);
      try{
-         const updateUser = await User.findByIdAndUpdate(req.params.id, req.body, {new: true});
-      res.json({
-            status: 200,
-            data: updateUser
-        })
+        console.log(req.body);
+        const updateUser = await User.findByIdAndUpdate(req.params.id, req.body);
+        res.json({
+                status: 200,
+                data: updateUser
+            })
      }catch(err){
-         res.json({
-             status: 500,
-             data: err
-         })
+        res.json({
+            status: 500,
+            data: err
+        });
      };
  });
 
 
-    //edit user
-    router.get('/:id/edit', async (req, res)=>{
-        try {
-          const foundUser = await Users.findById(req.params.id);
-          //const foundUser = await User.findById(req.session.username);
-          console.log(foundUser);
-          res.json({
-              status: 200,
-              data: foundUser
-          });
-      
-        } catch (err){
-            res.send(err)
-        }
-      });
-      
-      router.put('/:id', async (req, res)=>{
-       try {
-        const updatedUser = await Users.findByIdAndUpdate(req.params.id, req.body); //req.session.userId, 
+//edit user
+router.get('/:id/edit', async (req, res)=>{
+    try {
+        const foundUser = await Users.findById(req.params.id);
+        console.log(foundUser);
         res.json({
             status: 200,
-            data: updatedUser
+            data: foundUser
         });
-        //req.session.userId = updatedUser._id;
-        //console.log(req.session.username);
-        res.redirect("/users/");
-       } catch(err) {
-           console.log("ERROR", err)
+    } catch (err){
         res.send(err)
-       }
-      });
-
- 
- 
+    }
+});
 
 
 

@@ -23,6 +23,7 @@ class App extends Component {
     this.toggle = this.toggle.bind(this)
   }
   handleInputs = (e) => {
+    console.log(e.currentTarget.value)
     this.setState({
       [e.currentTarget.name]: e.currentTarget.value
     })
@@ -30,11 +31,9 @@ class App extends Component {
 
   submitRegistration = async (e) => {
     e.preventDefault();
-    console.log("GOT HERE")
     console.log(this.state);
     try{
-      console.log("GOT HERE, TOO")
-      const createUser = await fetch(process.env.REACT_APP_BACKEND_SERVER_ADDRESS + "/auth/register", {
+      const createUser = await fetch('http://localhost:9000/auth/register', {
         method: 'POST',
         body: JSON.stringify(this.state),
         headers: {
@@ -43,15 +42,15 @@ class App extends Component {
       });
       const parsedResponse = await createUser.json();
       console.log(parsedResponse, ' this is response')
-      if(parsedResponse.status == 200){
+      if(parsedResponse.status === 200){
         this.setState({
           loggedIn: true,
           // this isn't a real login - need to align it with the back-end to sort that out
           username: parsedResponse.data.username,
           location: parsedResponse.data.location,
           id: parsedResponse.data._id
-        })
-      } else if (parsedResponse.status == 500){
+        });
+      } else if (parsedResponse.status === 500){
         console.log("INTERNAL SERVER ERROR")
       }
     }catch(err){
@@ -59,13 +58,11 @@ class App extends Component {
     }
   }
 
-  // this is a fake line
-
   submitLogin = async (e) => {
     e.preventDefault();
     console.log("GOT LOGS")
     try{
-      const loggedUser = await fetch(process.env.REACT_APP_BACKEND_SERVER_ADDRESS + '/auth/login', {
+      const loggedUser = await fetch('http://localhost:9000/auth/login', {
         credentials: 'include',
         method: 'POST',
         body: JSON.stringify(this.state),
@@ -75,7 +72,7 @@ class App extends Component {
       });
       const parsedLogged = await loggedUser.json();
       console.log(parsedLogged, ' login successful')
-      if(parsedLogged.status == 200){
+      if(parsedLogged.status === 200){
         this.setState({
           loggedIn: true,
           username: parsedLogged.data.username,
@@ -83,7 +80,7 @@ class App extends Component {
           id: parsedLogged.data._id
         })
         console.log(this.state);
-      } else if (parsedLogged.status == 500){
+      } else if (parsedLogged.status === 500){
         console.log("INTERNAL SERVER ERROR")
       }
     }catch(err){
@@ -94,7 +91,7 @@ class App extends Component {
   deletedUser = async(id) => {
     console.log("delete user " + id);
 
-    const deleted = await fetch(process.env.REACT_APP_BACKEND_SERVER_ADDRESS+ "/users/" + this.state.id, {
+    const deleted = await fetch("http://localhost:9000/users/" + this.state.id, {
       //credentials: 'include',
         method: "DELETE"
     })
@@ -107,21 +104,29 @@ class App extends Component {
 
   submitEdits = async (e) => {
     e.preventDefault();
+    this.toggle();
+    // this.setState({
+    //   location: 
+    // })
+    console.log("trying to submit edits")
+    console.log(this.state.location)
     try{
-        const editedUser = await fetch(process.env.REACT_APP_BACKEND_SERVER_ADDRESS+ "/users/" + this.state.id, {
-          method: 'PUT',
-          body: JSON.stringify(this.state),
-          headers: {
-            'Content-Type': 'application/json'
-        } 
-        });
-        const parsedEdit = await editedUser.json();
-        this.setState({
-            username: parsedEdit.data.username,
-            password: parsedEdit.data.password,
-            location: parsedEdit.data.location,
-        })
-        console.log(this.state.location);
+      console.log("try block runs")
+      const editedUser = await fetch("http://localhost:9000/users/" + this.state.id, {
+        method: 'PUT',
+        body: JSON.stringify(this.state),
+        headers: {
+          'Content-Type': 'application/json'
+      } 
+      });
+      const parsedEdit = await editedUser.json();
+      console.log(parsedEdit);
+      this.setState({
+          username: parsedEdit.data.username,
+          password: parsedEdit.data.password,
+          location: parsedEdit.data.location,
+      })
+      console.log(this.state.location);
     }catch(err){
       console.log(err);
     }

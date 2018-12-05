@@ -10,8 +10,8 @@ export default class Profile extends Component{
                 {this.props.isOpen ? <div/> : <Redirect to="/weather"/>}
                 <Modal isOpen={this.props.isOpen} toggle={this.props.toggle}>
                     <ModalHeader toggle={this.toggle}>Edit Your Profile</ModalHeader>
-                        <Form onSubmit={this.props.submitEdits}>
-                    <ModalBody>
+                    <Form onSubmit={this.props.submitEdits}>
+                        <ModalBody>
                             <FormGroup>
                                 <Label>username:</Label>
                                 <Input onChange={this.props.handleInputs} name="username" value={this.props.username}/>
@@ -24,18 +24,18 @@ export default class Profile extends Component{
                             </FormGroup>
                             <FormGroup>
                                 <Label>
-                                    location:
+                                    zip code:
                                 </Label>
                                 <Input onChange={this.props.handleInputs} name="location" value={this.props.location}/>
                             </FormGroup>
-                    </ModalBody>
-                    <ModalFooter>
+                        </ModalBody>
+                        <ModalFooter>
                             <FormGroup>
-                                <Button color="primary" type="submit" onClick={this.props.toggle}>Submit Changes</Button>{' '}
+                                <Button color="primary" type="submit">Submit Changes</Button>{' '}
                                 <Button color="secondary" onClick={this.props.toggle}>Cancel</Button>
                             </FormGroup>
-                    </ModalFooter>
-                        </Form> 
+                        </ModalFooter>
+                    </Form>
                 </Modal>
             </div>
         )

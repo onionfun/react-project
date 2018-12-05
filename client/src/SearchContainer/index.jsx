@@ -13,7 +13,7 @@ class Search extends Component {
 
  render() {
    return (
-     <form>
+     <form onSubmit={this.props.submitEdits}>
        <input
          placeholder="Change Location"
          ref={input => this.search = input}

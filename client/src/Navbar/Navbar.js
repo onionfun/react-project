@@ -13,17 +13,20 @@ import {
   // DropdownItem 
   import Search from '../SearchContainer';
   //import Delete from '../DeleteUser/DeleteContainer';
-  import App from '../App';
+  // import App from '../App';
   import { Link } from 'react-router-dom'
-import Profile from '../Profile';
+// import Profile from '../Profile';
 
 
   
 class Navi extends React.Component {
+  constructor(){
+    super();
+  }
   render() {
     return (
       <div>
-        <Navbar color="light" light expand="md">
+        <Navbar className="color-main" color="#0FC1FF" light expand="md">
           <NavbarBrand href="/">Sweater Weather</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse  navbar>
@@ -40,8 +43,8 @@ class Navi extends React.Component {
               <NavItem>
                 <NavLink tag={Link} to="/user/delete" onClick={this.props.deletedUser.bind(null, this.props.id)}>Delete Yourself</NavLink>
               </NavItem>
-              <NavItem>  
-                <Search />            
+              <NavItem>
+                {this.props.loggedIn ? <Search location={this.props.location} submitEdits={this.props.submitEdits} /> : <div/>}
               </NavItem>
             </Nav>
           </Collapse>

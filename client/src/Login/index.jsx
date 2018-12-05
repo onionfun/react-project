@@ -1,45 +1,58 @@
 import React, {Component} from "react";
-import { Form, Label, Button } from "semantic-ui-react";
+import { Container, Col, Row, Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { Redirect } from 'react-router-dom';
 
 class Login extends Component {
     render(){
         return(
-            <div>
+            <div className="big-container">
                 {this.props.loggedIn ? <Redirect to="/weather"/>: <div/> }
                 <div className="spacer"/>
-                <h1>Login or Register</h1>
-                <h2>Login</h2>
-                <Form onSubmit={this.props.submitLogin}>
-                    <Label>
-                        username: 
-                        <Form.Input type="text" name="username" onChange={this.props.handleInputs} />
-                    </Label>
-                    <Label>
-                        password: <Form.Input type="password" name="password" onChange={this.props.handleInputs} />
-                    </Label>
-                    <br/>
-                    <br/>
-                    <Button color="blue" type="submit">Submit</Button>
-                </Form>
+                    <h1>Login</h1>
+                    <Form onSubmit={this.props.submitLogin}>
+
+                            <Label className="login-container">
+                        <Row> 
+                            <FormGroup>
+                                <Input type="text" name="username" placeholder="username" onChange={this.props.handleInputs} />
+                            </FormGroup>
+                        </Row>
+                        <Row></Row>
+                        <Row>
+                            <FormGroup>
+                                    <Input type="password" name="password" placeholder="password" onChange={this.props.handleInputs} />
+                            </FormGroup>
+                        </Row>
+                        <Row>
+                            <Button className="color-main-two" type="submit">Submit</Button>
+                        </Row>
+                            </Label>
+                    </Form>
                 <div className="spacer"/>
-                <div className="spacer"/>
-                <h2>Register</h2>
+                <h1>Register</h1>
                 <Form onSubmit={this.props.submitRegistration}>
-                    <Label>
-                        username: 
-                        <Form.Input type="text" name="username" onChange={this.props.handleInputs} />
+                    <Label className="login-container">
+                    <Row>
+                        <FormGroup>
+                            <Input placeholder="username" type="text" name="username" onChange={this.props.handleInputs} />
+                        </FormGroup>
+                    </Row>
+                    <Row>
+                        <FormGroup>
+                            <Input placeholder="password" type="password" name="password" onChange={this.props.handleInputs} />
+                        </FormGroup>
+                    </Row>
+                    <Row>
+                        <FormGroup>
+                            <Input placeholder="zip code" type="number" name="location" onChange={this.props.handleInputs}/>
+                        </FormGroup>
+                    </Row>
+                    <Row>
+                        <Button className="color-main-two" type="submit">Submit</Button>
+                    </Row>
                     </Label>
-                    <Label>
-                        password: <Form.Input type="password" name="password" onChange={this.props.handleInputs} />
-                    </Label>
-                    <Label>
-                        zip code: <Form.Input type="number" name="location" onChange={this.props.handleInputs}/>
-                    </Label>
-                    <br/>
-                    <br/>
-                    <Button color="green">Submit</Button>
                 </Form>
+                <div className="spacer"/>
             </div>
         )
     }

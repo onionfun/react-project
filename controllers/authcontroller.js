@@ -5,13 +5,11 @@ const session        = require('express-session')
 
 //login
 router.post('/login', async (req, res)=>{
-    console.log("GOT LOGGED")
     try{
        const createUser = await User.findOne({username: req.body.username});
         console.log(createUser)
         req.session.logged = true;
         req.session.username = req.body.username;
-        console.log("GOT LOGGED P2")
         res.json({
             status: 200,
             data: createUser
@@ -27,8 +25,6 @@ router.post('/login', async (req, res)=>{
 
 //registration
 router.post('/register', async (req, res)=>{
-    console.log("GOT REGISTER")
-    console.log(req.body);
     try{
         const newUser = await User.create(req.body);
         req.session.logged = true;
