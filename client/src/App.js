@@ -49,7 +49,7 @@ class App extends Component {
           username: parsedResponse.data.username,
           location: parsedResponse.data.location,
           id: parsedResponse.data._id
-        });
+        })
       } else if (parsedResponse.status === 500){
         console.log("INTERNAL SERVER ERROR")
       }
