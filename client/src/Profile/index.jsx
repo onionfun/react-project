@@ -12,7 +12,7 @@ export default class Profile extends Component{
                     <ModalHeader toggle={this.toggle}>Edit Your Profile</ModalHeader>
                     <Form onSubmit={this.props.submitEdits}>
                         <ModalBody>
-                            <FormGroup>
+                            {/* <FormGroup>
                                 <Label>username:</Label>
                                 <Input onChange={this.props.handleInputs} name="username" value={this.props.username}/>
                             </FormGroup>
@@ -21,7 +21,7 @@ export default class Profile extends Component{
                                     password:
                                 </Label>
                                 <Input onChange={this.props.handleInputs} name="password" value={this.props.password}/>
-                            </FormGroup>
+                            </FormGroup> */}
                             <FormGroup>
                                 <Label>
                                     zip code:

@@ -8,7 +8,7 @@ class Login extends Component {
             <div className="big-container">
                 {this.props.loggedIn ? <Redirect to="/weather"/>: <div/> }
                 <div className="spacer"/>
-                    <h1>Login</h1>
+                    {/* <h1>Login</h1>
                     <Form onSubmit={this.props.submitLogin}>
 
                             <Label className="login-container">
@@ -27,12 +27,12 @@ class Login extends Component {
                             <Button className="color-main-two" type="submit">Submit</Button>
                         </Row>
                             </Label>
-                    </Form>
+                    </Form> */}
                 <div className="spacer"/>
-                <h1>Register</h1>
+                {/* <h1>Register</h1> */}
                 <Form onSubmit={this.props.submitRegistration}>
                     <Label className="login-container">
-                    <Row>
+                    {/* <Row>
                         <FormGroup>
                             <Input placeholder="username" type="text" name="username" onChange={this.props.handleInputs} />
                         </FormGroup>
@@ -41,7 +41,7 @@ class Login extends Component {
                         <FormGroup>
                             <Input placeholder="password" type="password" name="password" onChange={this.props.handleInputs} />
                         </FormGroup>
-                    </Row>
+                    </Row> */}
                     <Row>
                         <FormGroup>
                             <Input placeholder="zip code" type="number" name="location" onChange={this.props.handleInputs}/>

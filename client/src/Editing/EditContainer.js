@@ -22,11 +22,11 @@ class EditUser extends Component {
         <Modal isOpen={this.state.modal} toggle={this.props.toggle}>
           <h4>Edit User</h4>
           <form onSubmit={this.props.closeAndEdit}>
-            <label>
+            {/* <label>
               Edit Username:
               <br/>
               <input type='text' name='username' value={this.props.userToEdit.username} onChange={this.props.handleEditChange}/>
-            </label>
+            </label> */}
             <label>
               Edit Location:
               <br/>

@@ -51,7 +51,7 @@ export default class Weather extends Component {
                     <Row><div className="spacer"></div></Row>
                     <Row>
                         <Col>
-                    <h1>Hi, {this.props.username}.</h1>
+                    {/* <h1>Hi, {this.props.username}.</h1> */}
                     <div className="spacer"/>
                     </Col>
                     </Row>

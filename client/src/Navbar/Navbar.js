@@ -31,18 +31,18 @@ class Navi extends React.Component {
           <NavbarToggler onClick={this.toggle} />
           <Collapse  navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>  
+              {/* <NavItem>  
                 {this.props.loggedIn ? <NavLink tag={Link} to="/" onClick={this.props.handleLogout}>Logout </NavLink> : <NavLink tag={Link} to='/login'>Login </NavLink> }
-              </NavItem>
-              <NavItem>
+              </NavItem> */}
+              {/* <NavItem>
                   <NavLink tag={Link} to="/weather">Check the weather</NavLink>
-              </NavItem>
+              </NavItem> */}
               <NavItem>
-                {this.props.loggedIn ? <NavLink tag={Link} onClick={this.props.toggle} to="/user/edit">Edit Profile</NavLink> : <div/>}
+                {this.props.loggedIn ? <NavLink tag={Link} onClick={this.props.toggle} to="/user/edit">Change location</NavLink> : <div/>}
               </NavItem>
-              <NavItem>
+              {/* <NavItem>
                 <NavLink tag={Link} to="/user/delete" onClick={this.props.deletedUser.bind(null, this.props.id)}>Delete Yourself</NavLink>
-              </NavItem>
+              </NavItem> */}
               {/* <NavItem>
                 {this.props.loggedIn ? <Search location={this.props.location} submitEdits={this.props.submitEdits} /> : <div/>}
               </NavItem> */}
